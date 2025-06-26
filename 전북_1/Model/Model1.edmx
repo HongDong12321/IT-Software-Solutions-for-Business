@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cno" />
+          </Key>
+          <Property Name="cno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ccolor" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="center">
+          <Key>
+            <PropertyRef Name="ceno" />
+          </Key>
+          <Property Name="ceno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cefrom" Type="int" Nullable="false" />
+          <Property Name="ceto" Type="int" Nullable="false" />
+          <Property Name="cedate" Type="date" Nullable="false" />
+          <Property Name="cedetail" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mbti">
+          <Key>
+            <PropertyRef Name="mno" />
+          </Key>
+          <Property Name="mno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mname" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="cno" Type="int" Nullable="false" />
+          <Property Name="mexplan" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="mdetail" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="qno" />
+          </Key>
+          <Property Name="qno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qdigitsor" Type="int" Nullable="false" />
+          <Property Name="qquestion" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="rno" />
+          </Key>
+          <Property Name="rno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uno" Type="int" Nullable="false" />
+          <Property Name="mno" Type="int" Nullable="false" />
+          <Property Name="rdate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="uno" />
+          </Key>
+          <Property Name="uno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="unick" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="uid" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="upw" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_mbti_category">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="mbti" Type="Self.mbti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="cno" />
+            </Principal>
+            <Dependent Role="mbti">
+              <PropertyRef Name="cno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_mbti">
+          <End Role="mbti" Type="Self.mbti" Multiplicity="1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mbti">
+              <PropertyRef Name="mno" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="mno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="uno" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="uno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="center" EntityType="Self.center" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mbti" EntityType="Self.mbti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="question" EntityType="Self.question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="result" EntityType="Self.result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_mbti_category" Association="Self.FK_mbti_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="mbti" EntitySet="mbti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_mbti" Association="Self.FK_result_mbti">
+            <End Role="mbti" EntitySet="mbti" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_user" Association="Self.FK_result_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cno" />
+          </Key>
+          <Property Name="cno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ccolor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="mbti" Relationship="Self.FK_mbti_category" FromRole="category" ToRole="mbti" />
+        </EntityType>
+        <EntityType Name="center">
+          <Key>
+            <PropertyRef Name="ceno" />
+          </Key>
+          <Property Name="ceno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cefrom" Type="Int32" Nullable="false" />
+          <Property Name="ceto" Type="Int32" Nullable="false" />
+          <Property Name="cedate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cedetail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mbti">
+          <Key>
+            <PropertyRef Name="mno" />
+          </Key>
+          <Property Name="mno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mname" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cno" Type="Int32" Nullable="false" />
+          <Property Name="mexplan" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mdetail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="category" Relationship="Self.FK_mbti_category" FromRole="mbti" ToRole="category" />
+          <NavigationProperty Name="result" Relationship="Self.FK_result_mbti" FromRole="mbti" ToRole="result" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="qno" />
+          </Key>
+          <Property Name="qno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qdigitsor" Type="Int32" Nullable="false" />
+          <Property Name="qquestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="rno" />
+          </Key>
+          <Property Name="rno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uno" Type="Int32" Nullable="false" />
+          <Property Name="mno" Type="Int32" Nullable="false" />
+          <Property Name="rdate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="mbti" Relationship="Self.FK_result_mbti" FromRole="result" ToRole="mbti" />
+          <NavigationProperty Name="user" Relationship="Self.FK_result_user" FromRole="result" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="uno" />
+          </Key>
+          <Property Name="uno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="unick" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="uid" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="upw" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="result" Relationship="Self.FK_result_user" FromRole="user" ToRole="result" />
+        </EntityType>
+        <Association Name="FK_mbti_category">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="mbti" Type="Self.mbti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="cno" />
+            </Principal>
+            <Dependent Role="mbti">
+              <PropertyRef Name="cno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_mbti">
+          <End Role="mbti" Type="Self.mbti" Multiplicity="1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mbti">
+              <PropertyRef Name="mno" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="mno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="uno" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="uno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="care" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="center" EntityType="Self.center" />
+          <EntitySet Name="mbti" EntityType="Self.mbti" />
+          <EntitySet Name="question" EntityType="Self.question" />
+          <EntitySet Name="result" EntityType="Self.result" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_mbti_category" Association="Self.FK_mbti_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="mbti" EntitySet="mbti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_mbti" Association="Self.FK_result_mbti">
+            <End Role="mbti" EntitySet="mbti" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_user" Association="Self.FK_result_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="care">
+          <EntitySetMapping Name="category">
+            <EntityTypeMapping TypeName="Model.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="cno" ColumnName="cno" />
+                <ScalarProperty Name="cname" ColumnName="cname" />
+                <ScalarProperty Name="ccolor" ColumnName="ccolor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="center">
+            <EntityTypeMapping TypeName="Model.center">
+              <MappingFragment StoreEntitySet="center">
+                <ScalarProperty Name="ceno" ColumnName="ceno" />
+                <ScalarProperty Name="cefrom" ColumnName="cefrom" />
+                <ScalarProperty Name="ceto" ColumnName="ceto" />
+                <ScalarProperty Name="cedate" ColumnName="cedate" />
+                <ScalarProperty Name="cedetail" ColumnName="cedetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mbti">
+            <EntityTypeMapping TypeName="Model.mbti">
+              <MappingFragment StoreEntitySet="mbti">
+                <ScalarProperty Name="mno" ColumnName="mno" />
+                <ScalarProperty Name="mname" ColumnName="mname" />
+                <ScalarProperty Name="cno" ColumnName="cno" />
+                <ScalarProperty Name="mexplan" ColumnName="mexplan" />
+                <ScalarProperty Name="mdetail" ColumnName="mdetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="question">
+            <EntityTypeMapping TypeName="Model.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="qno" ColumnName="qno" />
+                <ScalarProperty Name="qdigitsor" ColumnName="qdigitsor" />
+                <ScalarProperty Name="qquestion" ColumnName="qquestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="result">
+            <EntityTypeMapping TypeName="Model.result">
+              <MappingFragment StoreEntitySet="result">
+                <ScalarProperty Name="rno" ColumnName="rno" />
+                <ScalarProperty Name="uno" ColumnName="uno" />
+                <ScalarProperty Name="mno" ColumnName="mno" />
+                <ScalarProperty Name="rdate" ColumnName="rdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="Model.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="uno" ColumnName="uno" />
+                <ScalarProperty Name="unick" ColumnName="unick" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="upw" ColumnName="upw" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="없음" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
