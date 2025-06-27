@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "전북_1", "전북_1\전북_1.csproj", "{9B3E3BFB-2481-4938-9A09-4A5D471FC127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "솔루셩", "솔루셩\솔루셩.csproj", "{B5A84406-CD40-49D7-98D4-F6D7869D95F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "솔루션", "솔루셩\솔루션.csproj", "{B5A84406-CD40-49D7-98D4-F6D7869D95F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
