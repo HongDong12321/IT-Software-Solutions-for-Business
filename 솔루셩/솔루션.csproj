@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B5A84406-CD40-49D7-98D4-F6D7869D95F1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>솔루셩</RootNamespace>
-    <AssemblyName>솔루셩</AssemblyName>
+    <RootNamespace>솔루션</RootNamespace>
+    <AssemblyName>솔루션</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

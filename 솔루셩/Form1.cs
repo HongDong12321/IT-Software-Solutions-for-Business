@@ -91,7 +91,7 @@ namespace 솔루셩
             using (Graphics g = Graphics.FromImage(clipped))
             {
                 g.Clear(Color.Transparent);
-                Point[] localPoint =  points.ConvertAll (p => new Point(p.X - bounds.X,  p.Y -bounds.Y) ).ToArray();
+                Point[] localPoint =  points.ConvertAll (x => new Point(x.X - bounds.X, x.Y - bounds.Y) ).ToArray();
                 using (GraphicsPath  path = new GraphicsPath())
                 {
                     path.AddPolygon(localPoint);
@@ -100,10 +100,17 @@ namespace 솔루셩
                 }
             }
 
-            Form f = new Form();
-            PictureBox p = new PictureBox();
+            Form f = new Form()
+            {
+                Size = new Size(1000,1000)
+            };
+            PictureBox p = new PictureBox()
+            {
+                Dock = DockStyle.Fill,
+            };
             f.Controls.Add(p);
             p.Image = clipped;
+            f.Visible = true;
 
             this.Controls.Remove(capturePanel);
             capturePanel.Dispose();
